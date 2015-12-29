@@ -1,0 +1,308 @@
+levtab: .WORD levv1,lev1h ;Level address tables - first word compressed data
+	.WORD levv2,lev2h ;second word is header
+	.WORD levv3,lev3h
+	.WORD levv4,lev4h
+
+;Level header
+;This is replaced with whatever level is being played
+levhead: .byte 15,0,1,16,11,2,30,16 ;These are the 4 keys, alternating X,Y locations
+        .byte 1,17                  ;Door location
+
+        .byte 112,136,112,238,0     ;Enemies - initial X, initial Y, leftmost X, 
+	.byte 160,0,160,238,0       ;rightmost X, starting direction (0=left, 1=right)
+	.byte 160,16,160,238,0
+	.byte 160,32,160,238,0
+
+
+;Levels - headers first
+lev1h: 	.BYTE 15,0,1,16,11,2,30,16
+      	.BYTE 1,17
+
+      	.BYTE 112,136,112,238,0
+	.BYTE 0,200,1,238,255
+	.BYTE 0,200,1,238,255
+	.BYTE 0,200,1,238,255
+
+lev2h: 	.BYTE 1,4,30,4,30,16,16,4
+      	.BYTE 29,11
+
+      	.BYTE 64,136,8,232,1
+	.BYTE 72,40,72,112,0
+	.BYTE 128,40,128,168,0
+	.BYTE 192,40,192,232,0
+
+lev3h: 	.BYTE 1,0,30,0,1,6,30,6
+      	.BYTE 29,17
+
+      	.BYTE 8,24,8,64,0
+	.BYTE 8,72,8,64,0
+	.BYTE 232,24,176,232,1
+	.BYTE 232,72,176,232,1
+
+lev4h: 	.BYTE 1,3,30,3,14,3,17,3
+      	.BYTE 29,17
+
+      	.BYTE 48,96,48,88,0
+	.BYTE 136,96,104,136,1
+	.BYTE 152,96,152,192,0
+	.BYTE 48,128,48,192,0
+
+;Then compressed data
+;Compression format is :
+; bits 0-1 - block type (0=air, 1=floor, 2=wall, 3=spike)
+; bits 2-7 - block count minus 1
+;255 marks the end of level data
+;Levels are 32x20 blocks
+
+levv1:   .BYTE 6
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 60
+.BYTE 14
+.BYTE 48
+.BYTE 10
+.BYTE 40
+.BYTE 22
+.BYTE 60
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 32
+.BYTE 37
+.BYTE 52
+.BYTE 10
+.BYTE 84
+.BYTE 7
+.BYTE 32
+.BYTE 10
+.BYTE 64
+.BYTE 13
+.BYTE 8
+.BYTE 6
+.BYTE 32
+.BYTE 10
+.BYTE 84
+.BYTE 6
+.BYTE 32
+.BYTE 10
+.BYTE 68
+.BYTE 33
+.BYTE 20
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 60
+.BYTE 5
+.BYTE 56
+.BYTE 10
+.BYTE 44
+.BYTE 5
+.BYTE 72
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 28
+.BYTE 5
+.BYTE 88
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 16
+.BYTE 7
+.BYTE 100
+.BYTE 6
+.BYTE 125+4
+.BYTE $FF
+
+levv2: .BYTE 6
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 21
+.BYTE 12
+.BYTE 89
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 20
+.BYTE 13
+.BYTE 88
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 32
+.BYTE 17
+.BYTE 48
+.BYTE 25
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 12
+.BYTE 81
+.BYTE 28
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 6
+.BYTE 125+4
+.BYTE $FF
+
+levv3: .BYTE 6
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 37
+.BYTE 48
+.BYTE 37
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 44
+.BYTE 9
+.BYTE 16
+.BYTE 13
+.BYTE 40
+.BYTE 10
+.BYTE 40
+.BYTE 5
+.BYTE 76
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 37
+.BYTE 48
+.BYTE 37
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 48
+.BYTE 5
+.BYTE 32
+.BYTE 5
+.BYTE 32
+.BYTE 10
+.BYTE 72
+.BYTE 5
+.BYTE 44
+.BYTE 10
+.BYTE 60
+.BYTE 5
+.BYTE 56
+.BYTE 10
+.BYTE 48
+.BYTE 5
+.BYTE 68
+.BYTE 10
+.BYTE 36
+.BYTE 5
+.BYTE 80
+.BYTE 10
+.BYTE 120
+.BYTE 6
+.BYTE 125+4
+.BYTE $FF
+
+levv4: .BYTE 6
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 17
+.BYTE 40
+.BYTE 11
+.BYTE 40
+.BYTE 17
+.BYTE 10
+.BYTE 48
+.BYTE 25
+.BYTE 48
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 20
+.BYTE 9
+.BYTE 20
+.BYTE 5
+.BYTE 16
+.BYTE 5
+.BYTE 20
+.BYTE 9
+.BYTE 20
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 32
+.BYTE 5
+.BYTE 8
+.BYTE 5
+.BYTE 28
+.BYTE 5
+.BYTE 8
+.BYTE 5
+.BYTE 28
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 20
+.BYTE 81
+.BYTE 20
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 16
+.BYTE 5
+.BYTE 80
+.BYTE 5
+.BYTE 16
+.BYTE 10
+.BYTE 120
+.BYTE 10
+.BYTE 20
+.BYTE 83
+.BYTE 20
+.BYTE 6
+.BYTE 125+4
+.BYTE $FF
